@@ -4,6 +4,7 @@
   "description": "html-template-tag renders new rows; the timer's _action dispatcher and direct DOM changes do the rest",
   "type": "module",
   "private": true,
+  "license": "ISC",
   "js-framework-benchmark": {
     "frameworkVersionFromPackage": "html-template-tag",
     "frameworkHomeURL": "https://github.com/AntonioVdlC/html-template-tag",

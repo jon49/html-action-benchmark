@@ -4,6 +4,7 @@
   "description": "morph-scoped-timer's approach: html-template-tag-stream views, idiomorph, @jon49/web _click actions, and each action renders only what it changed",
   "type": "module",
   "private": true,
+  "license": "ISC",
   "js-framework-benchmark": {
     "frameworkVersionFromPackage": "idiomorph",
     "frameworkHomeURL": "https://github.com/bigskysoftware/idiomorph",
