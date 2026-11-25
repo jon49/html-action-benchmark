@@ -1,0 +1,1 @@
+{"framework":"react-hooks-v19.2.0-keyed","keyed":true,"benchmark":"43_first-paint","type":"size","values":{"DEFAULT":{"min":370,"max":370,"median":370,"mean":370,"stddev":null,"values":[370]}}}

@@ -1,0 +1,23 @@
+{
+  "name": "js-framework-benchmark-html-action",
+  "version": "1.0.0",
+  "description": "html-template-tag renders new rows; the timer's _action dispatcher and direct DOM changes do the rest",
+  "type": "module",
+  "private": true,
+  "js-framework-benchmark": {
+    "frameworkVersionFromPackage": "html-template-tag",
+    "frameworkHomeURL": "https://github.com/AntonioVdlC/html-template-tag",
+    "customURL": "/dist",
+    "language": "TypeScript"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build-prod": "vite build"
+  },
+  "dependencies": {
+    "html-template-tag": "4.0.1"
+  },
+  "devDependencies": {
+    "vite": "^8.3.8"
+  }
+}

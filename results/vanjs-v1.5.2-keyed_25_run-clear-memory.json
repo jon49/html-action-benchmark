@@ -1,0 +1,1 @@
+{"framework":"vanjs-v1.5.2-keyed","keyed":true,"benchmark":"25_run-clear-memory","type":"memory","values":{"DEFAULT":{"min":0.7031698226928711,"max":0.7031698226928711,"median":0.7031698226928711,"mean":0.7031698226928711,"stddev":null,"values":[0.7031698226928711]}}}

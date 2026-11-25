@@ -1,0 +1,1 @@
+{"framework":"morph-scoped-v0.7.4-keyed","keyed":true,"benchmark":"25_run-clear-memory","type":"memory","values":{"DEFAULT":{"min":0.7322959899902344,"max":0.7322959899902344,"median":0.7322959899902344,"mean":0.7322959899902344,"stddev":null,"values":[0.7322959899902344]}}}

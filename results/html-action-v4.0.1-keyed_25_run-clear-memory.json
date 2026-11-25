@@ -1,0 +1,1 @@
+{"framework":"html-action-v4.0.1-keyed","keyed":true,"benchmark":"25_run-clear-memory","type":"memory","values":{"DEFAULT":{"min":0.6928939819335938,"max":0.6928939819335938,"median":0.6928939819335938,"mean":0.6928939819335938,"stddev":null,"values":[0.6928939819335938]}}}
