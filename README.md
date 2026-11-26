@@ -9,7 +9,7 @@ table.
 |---|---|
 | [`morph-scoped/`](morph-scoped) | The timer's `morph-scoped-timer`, ported as-is: [html-template-tag-stream](https://github.com/jon49/html-template-tag-async) views, [idiomorph](https://github.com/bigskysoftware/idiomorph), and [@jon49/web](https://github.com/jon49/jon49-web)'s `_click` actions and `_action.lifecycle`. Every action renders only what it changed: one row's `<tr>`, or the whole table. |
 | [`html-action/`](html-action) | [html-template-tag](https://github.com/AntonioVdlC/html-template-tag) 4.0.1 creates rows. Every other action changes the rows already on the page, through the timer's `_action` dispatcher (`src/_action.ts`, copied from the timer's `_action` implementation). No idiomorph, no @jon49/web. |
-| [`html-action-cached/`](html-action-cached) | html-action with [`html-template-tag-cached`](html-template-tag-cached) in place of html-template-tag 4.0.1: 5.0.0's quoting and URI-attribute blocking, worked out once per template. The library is copied into `src/` so the folder builds on its own; its tests live in `html-template-tag-cached/`. Not benchmarked yet. |
+| [`html-action-cached/`](html-action-cached) | html-action with [`html-template-tag-cached`](html-template-tag-cached) in place of html-template-tag 4.0.1: 5.0.0's quoting and URI-attribute blocking, worked out once per template. The library is copied into `src/` so the folder builds on its own; its tests live in `html-template-tag-cached/`. Results are under [html-template-tag-cached in the benchmark](#html-template-tag-cached-in-the-benchmark). |
 
 ## Results
 
@@ -146,10 +146,50 @@ Same `_action` code, three template libraries:
   instead of on every call, and only treats a `${}` as an attribute value when
   it's inside a tag. Building 10,000 rows takes 2.7 ms in Node, against about
   170 ms with 5.0.0. It also strips the `$` from `$${array}`, which 5.0.0 leaves
-  in the output. It hasn't been run in the benchmark yet.
+  in the output. In the benchmark it costs the same script time as 4.0.1 (see
+  below).
 
 Raw results weren't kept for the first morph-scoped port or the stream-library
 run of html-action. Their numbers above are the medians recorded at the time.
+
+## html-template-tag-cached in the benchmark
+
+html-action and html-action-cached run the same `_action` code. The only
+difference is the template library: html-template-tag 4.0.1, or
+[`html-template-tag-cached`](html-template-tag-cached), which keeps 5.0.0's
+quoting and URI-attribute blocking but works them out once per template.
+These four ran together on 2026-11-26, same machine and setup as above:
+
+| Benchmark | vanillajs-lite | vanillajs | html-action (4.0.1) | html-action-cached |
+|---|---|---|---|---|
+| create 1k rows | 66.4 (4.6) | $\color{#2da44e}\mathbf{63.8}$ ($\color{#2da44e}\mathbf{4.0}$) | 69.1 (7.2) | 66.1 (7.1) |
+| replace 1k rows | $\color{#2da44e}\mathbf{69.8}$ ($\color{#2da44e}\mathbf{9.8}$) | 70.0 (10.4) | 74.9 (13.7) | 74.5 (12.4) |
+| update every 10th row | 35.2 ($\color{#2da44e}\mathbf{1.1}$) | 35.5 ($\color{#2da44e}\mathbf{1.1}$) | 35.3 (1.4) | $\color{#2da44e}\mathbf{35.1}$ (1.7) |
+| select row | $\color{#2da44e}\mathbf{8.1}$ ($\color{#2da44e}\mathbf{0.4}$) | 9.3 (0.8) | 8.9 (0.5) | 8.6 (0.6) |
+| swap rows | $\color{#2da44e}\mathbf{38.1}$ ($\color{#2da44e}\mathbf{0.7}$) | 38.6 ($\color{#2da44e}\mathbf{0.7}$) | 38.6 (0.8) | 40.7 (1.2) |
+| remove row | $\color{#2da44e}\mathbf{36.5}$ ($\color{#2da44e}\mathbf{0.3}$) | 37.8 (0.9) | 37.8 (0.4) | 40.7 ($\color{#2da44e}\mathbf{0.3}$) |
+| create 10k rows | 754.8 ($\color{#2da44e}\mathbf{35.5}$) | $\color{#2da44e}\mathbf{699.9}$ (40.0) | 745.7 (74.9) | 735.2 (67.9) |
+| append 1k rows | $\color{#2da44e}\mathbf{68.2}$ ($\color{#2da44e}\mathbf{3.4}$) | 73.5 (4.4) | 76.5 (7.2) | 75.5 (6.7) |
+| clear rows | $\color{#2da44e}\mathbf{28.9}$ ($\color{#2da44e}\mathbf{23.9}$) | 30.2 (25.4) | 29.7 (25.4) | 30.4 (25.8) |
+| size, compressed, KB | $\color{#2da44e}\mathbf{1.4}$ | 2.5 | 1.9 | 2.4 |
+| **weighted geometric mean** | $\color{#2da44e}\mathbf{1.02}$ | **1.03** | **1.06** | **1.06** |
+
+- **5.0.0's protections no longer cost script time.** Building rows takes the
+  same script time as with 4.0.1: 7.1 against 7.2 ms for 1k rows, 67.9 against
+  74.9 ms for 10k. With 5.0.0 itself these were 26.3 and 230.5 ms (first
+  table).
+- **The cost is size:** 2.4 KB compressed against 4.0.1's 1.9 KB, from the
+  code that scans templates for tags and quotes. 5.0.0 is 3.5 KB.
+- Swap and remove row came out 2–3 ms slower for html-action-cached, but those
+  actions don't use the template library, and their script times match. That's
+  run-to-run noise.
+- The geometric means match the earlier set: vanillajs-lite and vanillajs
+  1.02–1.03, html-action 1.06.
+- Two earlier attempts the same night were disturbed. vanillajs's create 1k
+  rows ranged from 65 to 231 ms, and its replace 1k rows median was 91 ms,
+  against about 67 ms normally. They're kept in
+  [`results/2026-11-26/noisy/`](results/2026-11-26/noisy); the table uses the
+  clean run in [`results/2026-11-26/`](results/2026-11-26).
 
 ## Running them
 

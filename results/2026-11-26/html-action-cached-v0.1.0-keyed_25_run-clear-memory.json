@@ -1,0 +1,1 @@
+{"framework":"html-action-cached-v0.1.0-keyed","keyed":true,"benchmark":"25_run-clear-memory","type":"memory","values":{"DEFAULT":{"min":0.7065725326538086,"max":0.7065725326538086,"median":0.7065725326538086,"mean":0.7065725326538086,"stddev":null,"values":[0.7065725326538086]}}}
