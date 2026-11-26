@@ -1,6 +1,6 @@
 # html-action-benchmark
 
-Two [js-framework-benchmark](https://github.com/krausest/js-framework-benchmark)
+Three [js-framework-benchmark](https://github.com/krausest/js-framework-benchmark)
 implementations, written to see how the approaches in
 [jon49/timer](https://github.com/jon49/timer) hold up on a 1,000–10,000 row
 table.
@@ -9,6 +9,7 @@ table.
 |---|---|
 | [`morph-scoped/`](morph-scoped) | The timer's `morph-scoped-timer`, ported as-is: [html-template-tag-stream](https://github.com/jon49/html-template-tag-async) views, [idiomorph](https://github.com/bigskysoftware/idiomorph), and [@jon49/web](https://github.com/jon49/jon49-web)'s `_click` actions and `_action.lifecycle`. Every action renders only what it changed: one row's `<tr>`, or the whole table. |
 | [`html-action/`](html-action) | [html-template-tag](https://github.com/AntonioVdlC/html-template-tag) 4.0.1 creates rows. Every other action changes the rows already on the page, through the timer's `_action` dispatcher (`src/_action.ts`, copied from the timer's `_action` implementation). No idiomorph, no @jon49/web. |
+| [`html-action-cached/`](html-action-cached) | html-action with [`html-template-tag-cached`](html-template-tag-cached) in place of html-template-tag 4.0.1: 5.0.0's quoting and URI-attribute blocking, worked out once per template. The library is copied into `src/` so the folder builds on its own; its tests live in `html-template-tag-cached/`. Not benchmarked yet. |
 
 ## Results
 
@@ -153,11 +154,12 @@ run of html-action. Their numbers above are the medians recorded at the time.
 ## Running them
 
 1. Clone [js-framework-benchmark](https://github.com/krausest/js-framework-benchmark)
-   and copy `morph-scoped/` and `html-action/` into its `frameworks/keyed/`.
+   and copy `morph-scoped/`, `html-action/` and `html-action-cached/` into
+   its `frameworks/keyed/`.
 2. `morph-scoped` needs [jon49-web](https://github.com/jon49/jon49-web)
    checked out next to the benchmark repo (`@jon49/web` is a `file:`
    dependency, because the npm release predates `_action.lifecycle`).
-   `html-action` has no such requirement.
+   `html-action` and `html-action-cached` have no such requirement.
 3. Build each one: `npm install && npm run build-prod` in its directory.
 4. From the benchmark repo's root:
 
