@@ -36,7 +36,8 @@ come from earlier runs on the same machine.
 | size, compressed, KB | 2.5 | 1.9 | 3.5 | 5.7 | 2.0 | 51.4 |
 | first paint, ms | 95.9 | 71.3 | 76.0 | 92.2 | 84.1 | 370.0 |
 
-The raw result files are in [`results/`](results).
+The raw result files are in [`results/`](results). The run against vanillajs-lite
+below is in [`results/2026-11-25/`](results/2026-11-25).
 
 Reading the numbers:
 
@@ -52,6 +53,44 @@ Reading the numbers:
 - With 1–2 ms of script on every operation that isn't creating rows,
   html-action is level with vanillajs. Creating rows costs a few ms more,
   from building an HTML string and parsing it instead of cloning a template.
+
+## Weighted geometric mean, against vanillajs-lite
+
+The benchmark's results page ranks frameworks by a weighted geometric mean of
+the nine timing benchmarks. For each benchmark it divides a framework's median
+by the fastest median in the set, then averages those ratios on a log scale,
+weighted by benchmark (create 1k rows 0.64; update, create 10k, replace,
+append and remove 0.53–0.56; clear 0.42; select 0.19; swap 0.13). 1.00 means
+fastest on everything. The score depends on which frameworks are in the set.
+
+These four ran together on 2026-11-25, same machine and setup as above:
+
+| Benchmark | vanillajs-lite | vanillajs | html-action | morph-scoped |
+|---|---|---|---|---|
+| create 1k rows | 59.7 (3.6) | 58.8 (4.0) | 63.3 (7.0) | 67.9 (10.6) |
+| replace 1k rows | 64.7 (9.0) | 67.7 (9.7) | 68.2 (12.6) | 75.5 (16.7) |
+| update every 10th row | 30.7 (1.0) | 29.4 (1.0) | 30.6 (1.3) | 50.3 (20.1) |
+| select row | 6.8 (0.4) | 7.6 (0.7) | 7.3 (0.2) | 10.6 (3.1) |
+| swap rows | 33.4 (0.7) | 33.0 (0.7) | 36.0 (0.8) | 34.2 (1.0) |
+| remove row | 34.9 (0.3) | 36.5 (0.7) | 34.0 (0.4) | 32.7 (0.7) |
+| create 10k rows | 635.9 (32.0) | 648.8 (37.7) | 707.6 (69.2) | 719.3 (91.9) |
+| append 1k rows | 68.3 (3.5) | 64.9 (3.7) | 68.7 (6.7) | 74.0 (9.0) |
+| clear rows | 27.2 (23.4) | 26.9 (22.7) | 27.8 (23.8) | 30.7 (27.1) |
+| **weighted geometric mean** | **1.03** | **1.03** | **1.06** | **1.20** |
+
+- html-action is about 3% behind vanillajs-lite. Most of that is creating
+  rows: about 37 ms more script for 10k rows, and 3–4 ms more per 1k, from
+  building and parsing an HTML string. Everything else is within noise.
+- morph-scoped's gap is mostly update every 10th row, where idiomorph costs
+  about 20 ms of script.
+- vanjs and react-hooks weren't rerun. In the earlier runs above they came out
+  well behind vanillajs: scored as one set, vanillajs 1.05, vanjs 1.33,
+  react-hooks 1.36.
+- In this run, html-action's first create 10k rows measured 936 ms, with
+  samples from 780 to 1,308 ms and doubled script time, while the other three
+  stayed steady. That points to something else using the CPU at the time, so
+  create 10k rows was rerun for all four. The table uses the rerun. Both are in
+  [`results/2026-11-25/`](results/2026-11-25).
 
 ## How morph-scoped got here
 
