@@ -16,25 +16,26 @@ Measured 2026-11-24 with the benchmark's default runner (Puppeteer, headless
 Chrome 156) on an Intel Core i5-1235U laptop. Times are in ms, median of 15
 runs, with the share spent running JavaScript ("script time") in parentheses.
 vanillajs and html-action (4.0.1) come from the same run; the other columns
-come from earlier runs on the same machine.
+come from earlier runs on the same machine. In every table, the lowest (best)
+value in each row is green, comparing totals and script times separately.
 
 | Benchmark | vanillajs | html-action (4.0.1) | html-action (5.0.0) | morph-scoped | vanjs | react-hooks |
 |---|---|---|---|---|---|---|
-| create 1k rows | 57.7 (4.0) | 63.0 (7.1) | 80.4 (26.3) | 73.8 (11.7) | 85.0 (16.9) | 79.7 (15.3) |
-| replace 1k rows | 67.3 (9.8) | 66.9 (12.1) | 87.1 (29.6) | 81.1 (17.7) | 81.1 (21.2) | 86.6 (25.1) |
-| update every 10th row | 32.2 (1.0) | 33.1 (1.3) | 31.9 (1.3) | 57.4 (24.4) | 54.7 (3.0) | 36.2 (8.2) |
-| select row | 8.9 (0.8) | 8.0 (0.5) | 7.5 (0.4) | 12.0 (3.5) | 16.0 (0.9) | 14.7 (5.7) |
-| swap rows | 34.8 (0.5) | 39.4 (0.9) | 34.4 (0.8) | 38.2 (1.2) | 38.7 (0.6) | 297.5 (44.8) |
-| remove row | 39.1 (0.9) | 38.5 (0.3) | 33.1 (0.3) | 36.6 (0.9) | 45.4 (0.7) | 40.9 (3.0) |
-| create 10k rows | 631.6 (36.6) | 699.2 (72.0) | 852.3 (230.5) | 761.0 (98.7) | 839.2 (152.6) | 880.1 (218.7) |
-| append 1k rows | 92.6 (4.9) | 78.0 (8.7) | 97.4 (26.8) | 79.2 (10.3) | 96.2 (22.1) | 83.4 (15.6) |
-| clear rows | 34.2 (29.2) | 32.1 (28.0) | 29.2 (25.2) | 35.7 (30.8) | 31.7 (27.4) | 49.6 (44.9) |
-| memory after load, MB | 0.56 | 0.56 | 0.58 | 0.60 | 0.55 | 1.18 |
-| memory with 1k rows, MB | 1.87 | 1.78 | 1.81 | 1.81 | 2.32 | 4.42 |
-| memory after create + clear, MB | 0.64 | 0.69 | 0.71 | 0.73 | 0.70 | 1.97 |
-| size, uncompressed, KB | 11.3 | 5.5 | 10.9 | 17.8 | 5.8 | 190.3 |
-| size, compressed, KB | 2.5 | 1.9 | 3.5 | 5.7 | 2.0 | 51.4 |
-| first paint, ms | 95.9 | 71.3 | 76.0 | 92.2 | 84.1 | 370.0 |
+| create 1k rows | $\color{#2da44e}\mathbf{57.7}$ ($\color{#2da44e}\mathbf{4.0}$) | 63.0 (7.1) | 80.4 (26.3) | 73.8 (11.7) | 85.0 (16.9) | 79.7 (15.3) |
+| replace 1k rows | 67.3 ($\color{#2da44e}\mathbf{9.8}$) | $\color{#2da44e}\mathbf{66.9}$ (12.1) | 87.1 (29.6) | 81.1 (17.7) | 81.1 (21.2) | 86.6 (25.1) |
+| update every 10th row | 32.2 ($\color{#2da44e}\mathbf{1.0}$) | 33.1 (1.3) | $\color{#2da44e}\mathbf{31.9}$ (1.3) | 57.4 (24.4) | 54.7 (3.0) | 36.2 (8.2) |
+| select row | 8.9 (0.8) | 8.0 (0.5) | $\color{#2da44e}\mathbf{7.5}$ ($\color{#2da44e}\mathbf{0.4}$) | 12.0 (3.5) | 16.0 (0.9) | 14.7 (5.7) |
+| swap rows | 34.8 ($\color{#2da44e}\mathbf{0.5}$) | 39.4 (0.9) | $\color{#2da44e}\mathbf{34.4}$ (0.8) | 38.2 (1.2) | 38.7 (0.6) | 297.5 (44.8) |
+| remove row | 39.1 (0.9) | 38.5 ($\color{#2da44e}\mathbf{0.3}$) | $\color{#2da44e}\mathbf{33.1}$ ($\color{#2da44e}\mathbf{0.3}$) | 36.6 (0.9) | 45.4 (0.7) | 40.9 (3.0) |
+| create 10k rows | $\color{#2da44e}\mathbf{631.6}$ ($\color{#2da44e}\mathbf{36.6}$) | 699.2 (72.0) | 852.3 (230.5) | 761.0 (98.7) | 839.2 (152.6) | 880.1 (218.7) |
+| append 1k rows | 92.6 ($\color{#2da44e}\mathbf{4.9}$) | $\color{#2da44e}\mathbf{78.0}$ (8.7) | 97.4 (26.8) | 79.2 (10.3) | 96.2 (22.1) | 83.4 (15.6) |
+| clear rows | 34.2 (29.2) | 32.1 (28.0) | $\color{#2da44e}\mathbf{29.2}$ ($\color{#2da44e}\mathbf{25.2}$) | 35.7 (30.8) | 31.7 (27.4) | 49.6 (44.9) |
+| memory after load, MB | 0.56 | 0.56 | 0.58 | 0.60 | $\color{#2da44e}\mathbf{0.55}$ | 1.18 |
+| memory with 1k rows, MB | 1.87 | $\color{#2da44e}\mathbf{1.78}$ | 1.81 | 1.81 | 2.32 | 4.42 |
+| memory after create + clear, MB | $\color{#2da44e}\mathbf{0.64}$ | 0.69 | 0.71 | 0.73 | 0.70 | 1.97 |
+| size, uncompressed, KB | 11.3 | $\color{#2da44e}\mathbf{5.5}$ | 10.9 | 17.8 | 5.8 | 190.3 |
+| size, compressed, KB | 2.5 | $\color{#2da44e}\mathbf{1.9}$ | 3.5 | 5.7 | 2.0 | 51.4 |
+| first paint, ms | 95.9 | $\color{#2da44e}\mathbf{71.3}$ | 76.0 | 92.2 | 84.1 | 370.0 |
 
 The raw result files are in [`results/`](results). The run against vanillajs-lite
 below is in [`results/2026-11-25/`](results/2026-11-25).
@@ -67,16 +68,16 @@ These four ran together on 2026-11-25, same machine and setup as above:
 
 | Benchmark | vanillajs-lite | vanillajs | html-action | morph-scoped |
 |---|---|---|---|---|
-| create 1k rows | 59.7 (3.6) | 58.8 (4.0) | 63.3 (7.0) | 67.9 (10.6) |
-| replace 1k rows | 64.7 (9.0) | 67.7 (9.7) | 68.2 (12.6) | 75.5 (16.7) |
-| update every 10th row | 30.7 (1.0) | 29.4 (1.0) | 30.6 (1.3) | 50.3 (20.1) |
-| select row | 6.8 (0.4) | 7.6 (0.7) | 7.3 (0.2) | 10.6 (3.1) |
-| swap rows | 33.4 (0.7) | 33.0 (0.7) | 36.0 (0.8) | 34.2 (1.0) |
-| remove row | 34.9 (0.3) | 36.5 (0.7) | 34.0 (0.4) | 32.7 (0.7) |
-| create 10k rows | 635.9 (32.0) | 648.8 (37.7) | 707.6 (69.2) | 719.3 (91.9) |
-| append 1k rows | 68.3 (3.5) | 64.9 (3.7) | 68.7 (6.7) | 74.0 (9.0) |
-| clear rows | 27.2 (23.4) | 26.9 (22.7) | 27.8 (23.8) | 30.7 (27.1) |
-| **weighted geometric mean** | **1.03** | **1.03** | **1.06** | **1.20** |
+| create 1k rows | 59.7 ($\color{#2da44e}\mathbf{3.6}$) | $\color{#2da44e}\mathbf{58.8}$ (4.0) | 63.3 (7.0) | 67.9 (10.6) |
+| replace 1k rows | $\color{#2da44e}\mathbf{64.7}$ ($\color{#2da44e}\mathbf{9.0}$) | 67.7 (9.7) | 68.2 (12.6) | 75.5 (16.7) |
+| update every 10th row | 30.7 ($\color{#2da44e}\mathbf{1.0}$) | $\color{#2da44e}\mathbf{29.4}$ ($\color{#2da44e}\mathbf{1.0}$) | 30.6 (1.3) | 50.3 (20.1) |
+| select row | $\color{#2da44e}\mathbf{6.8}$ (0.4) | 7.6 (0.7) | 7.3 ($\color{#2da44e}\mathbf{0.2}$) | 10.6 (3.1) |
+| swap rows | 33.4 ($\color{#2da44e}\mathbf{0.7}$) | $\color{#2da44e}\mathbf{33.0}$ ($\color{#2da44e}\mathbf{0.7}$) | 36.0 (0.8) | 34.2 (1.0) |
+| remove row | 34.9 ($\color{#2da44e}\mathbf{0.3}$) | 36.5 (0.7) | 34.0 (0.4) | $\color{#2da44e}\mathbf{32.7}$ (0.7) |
+| create 10k rows | $\color{#2da44e}\mathbf{635.9}$ ($\color{#2da44e}\mathbf{32.0}$) | 648.8 (37.7) | 707.6 (69.2) | 719.3 (91.9) |
+| append 1k rows | 68.3 ($\color{#2da44e}\mathbf{3.5}$) | $\color{#2da44e}\mathbf{64.9}$ (3.7) | 68.7 (6.7) | 74.0 (9.0) |
+| clear rows | 27.2 (23.4) | $\color{#2da44e}\mathbf{26.9}$ ($\color{#2da44e}\mathbf{22.7}$) | 27.8 (23.8) | 30.7 (27.1) |
+| **weighted geometric mean** | $\color{#2da44e}\mathbf{1.03}$ | $\color{#2da44e}\mathbf{1.03}$ | **1.06** | **1.20** |
 
 - html-action is about 3% behind vanillajs-lite. Most of that is creating
   rows: about 37 ms more script for 10k rows, and 3–4 ms more per 1k, from
@@ -98,10 +99,10 @@ The first port had two slow spots. Both are fixed in `morph-scoped/`:
 
 | Benchmark | first port | now |
 |---|---|---|
-| replace 1k rows | 504.5 (439.6) | 81.1 (17.7) |
-| update every 10th row | 72.0 (44.6) | 57.4 (24.4) |
-| create 10k rows | 820.2 (145.5) | 761.0 (98.7) |
-| clear rows | 46.4 (41.8) | 35.7 (30.8) |
+| replace 1k rows | 504.5 (439.6) | $\color{#2da44e}\mathbf{81.1}$ ($\color{#2da44e}\mathbf{17.7}$) |
+| update every 10th row | 72.0 (44.6) | $\color{#2da44e}\mathbf{57.4}$ ($\color{#2da44e}\mathbf{24.4}$) |
+| create 10k rows | 820.2 (145.5) | $\color{#2da44e}\mathbf{761.0}$ ($\color{#2da44e}\mathbf{98.7}$) |
+| clear rows | 46.4 (41.8) | $\color{#2da44e}\mathbf{35.7}$ ($\color{#2da44e}\mathbf{30.8}$) |
 
 - **Replace** morphed 1,000 old rows into 1,000 rows with new ids. Nothing
   matches, but idiomorph keeps looking, and that grows with old × new rows.
@@ -123,11 +124,11 @@ Same `_action` code, three template libraries:
 
 | Benchmark | html-template-tag-stream 5.0.0 | html-template-tag 5.0.0 | html-template-tag 4.0.1 |
 |---|---|---|---|
-| create 1k rows | 60.7 (7.1) | 80.4 (26.3) | 63.0 (7.1) |
-| replace 1k rows | 68.3 (12.3) | 87.1 (29.6) | 66.9 (12.1) |
-| create 10k rows | 643.9 (63.1) | 852.3 (230.5) | 699.2 (72.0) |
-| append 1k rows | 66.2 (6.4) | 97.4 (26.8) | 78.0 (8.7) |
-| size, compressed, KB | 2.4 | 3.5 | 1.9 |
+| create 1k rows | $\color{#2da44e}\mathbf{60.7}$ ($\color{#2da44e}\mathbf{7.1}$) | 80.4 (26.3) | 63.0 ($\color{#2da44e}\mathbf{7.1}$) |
+| replace 1k rows | 68.3 (12.3) | 87.1 (29.6) | $\color{#2da44e}\mathbf{66.9}$ ($\color{#2da44e}\mathbf{12.1}$) |
+| create 10k rows | $\color{#2da44e}\mathbf{643.9}$ ($\color{#2da44e}\mathbf{63.1}$) | 852.3 (230.5) | 699.2 (72.0) |
+| append 1k rows | $\color{#2da44e}\mathbf{66.2}$ ($\color{#2da44e}\mathbf{6.4}$) | 97.4 (26.8) | 78.0 (8.7) |
+| size, compressed, KB | 2.4 | 3.5 | $\color{#2da44e}\mathbf{1.9}$ |
 
 - The stream library and html-template-tag 4.0.1 cost the same script time.
   The stream library's `await`s only wait on microtasks, which is nothing next
