@@ -1,0 +1,18 @@
+{
+  "name": "html-template-tag-cached",
+  "version": "0.1.0",
+  "description": "html-template-tag 5.0.0's quoting and URI-attribute protection, decided once per template",
+  "type": "module",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "node test.mjs"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "html-es6cape": "^2.0.2"
+  },
+  "devDependencies": {
+    "html-template-tag": "5.0.0"
+  }
+}

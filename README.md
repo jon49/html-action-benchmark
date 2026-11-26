@@ -140,6 +140,12 @@ Same `_action` code, three template libraries:
 - **4.0.1 doesn't block `javascript:` URLs interpolated into `href` or `src`.**
   The row template has no URI attributes, so this doesn't matter here. Keep it
   in mind anywhere user input lands in one.
+- [`html-template-tag-cached/`](html-template-tag-cached) keeps 5.0.0's
+  protections without the cost. It makes those checks once per template
+  instead of on every call, and only treats a `${}` as an attribute value when
+  it's inside a tag. Building 10,000 rows takes 2.7 ms in Node, against about
+  170 ms with 5.0.0. It also strips the `$` from `$${array}`, which 5.0.0 leaves
+  in the output. It hasn't been run in the benchmark yet.
 
 Raw results weren't kept for the first morph-scoped port or the stream-library
 run of html-action. Their numbers above are the medians recorded at the time.
